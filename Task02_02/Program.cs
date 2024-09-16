@@ -14,30 +14,24 @@ class Program
         int k = int.Parse(Console.ReadLine());
 
         int[] sum = new int[array.Length];
-
-        for (int rotation = 0; rotation < k; rotation++)
+        for (int r = 0; r < k; r++)
         {
-            array = RotateRight(array);
-
+            int temp1 = array[array.Length - 1];
+            for (int i = array.Length - 1; i > 0; i--)
+            {
+                array[i] = array[i - 1];
+            }
+            array[0] = temp1;
             for (int i = 0; i < array.Length; i++)
             {
                 sum[i] += array[i];
             }
         }
-        Console.WriteLine("Sum: " + string.Join(" ", sum));
-    }
-
-    static int[] RotateRight(int[] array)
-    {
-        int[] rotated = new int[array.Length];
-        rotated[0] = array[array.Length - 1];
-
-        for (int i = 1; i < array.Length; i++)
-        {
-            rotated[i] = array[i - 1];
+        for (int w = 0; w < sum.Length; w++)
+            {;
+                Console.Write(sum[w] + " ");
+            }
         }
-        Console.WriteLine("Rotate: " + string.Join(" ", rotated));
-        return rotated;
-       
     }
-}
+
+
