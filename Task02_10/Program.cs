@@ -1,31 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 
 class Program
 {
     static void Main()
     {
-        string[] inputNumbers = Console.ReadLine().Split(' ');
-        int difference = int.Parse(Console.ReadLine());
-
+        string[] inputNumbers = Console.ReadLine().Split();
         int[] numbers = Array.ConvertAll(inputNumbers, int.Parse);
 
-        HashSet<int> numberSet = new HashSet<int>(numbers);
+        int difference = int.Parse(Console.ReadLine());
 
         int pairCount = 0;
 
-        foreach (int num in numbers)
+        for (int i = 0; i < numbers.Length; i++)
         {
-            if (numberSet.Contains(num + difference))
+            for (int j = i + 1; j < numbers.Length; j++)
             {
-                pairCount++;
-            }
-            if (numberSet.Contains(num - difference) && difference != 0)
-            {
-                pairCount++;
+                if (Math.Abs(numbers[i] - numbers[j]) == difference)
+                {
+                    pairCount++;
+                }
             }
         }
 
-        Console.WriteLine(pairCount / 2);
+        Console.WriteLine(pairCount);
     }
 }

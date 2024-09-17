@@ -1,54 +1,43 @@
 ﻿using System;
+using System.Text;
 
 class Program
 {
     static void Main()
     {
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.InputEncoding = Encoding.UTF8;
+        Console.WriteLine("Введіть числа");
         int[] arr = Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse);
 
         int n = arr.Length;
-        if (n == 0)
+        int[] len1 = [n];
+        int start = 0;
+        int len = 1;
+        int beststart = 0;
+        int bestlen = 1;
+        for (int i = 1; i < n; i++)
         {
-            Console.WriteLine();
-            return;
-        }
-
-        int[] dp = new int[n];
-        int[] prev = new int[n];
-
-        for (int i = 0; i < n; i++)
-        {
-            dp[i] = 1;
-            prev[i] = -1;
-            for (int j = 0; j < i; j++)
+            if (arr[i] == arr[i - 1])
             {
-                if (arr[j] < arr[i] && dp[j] + 1 > dp[i])
+                len++;
+            }
+            else
+            {
+                if (len>bestlen)
                 {
-                    dp[i] = dp[j] + 1;
-                    prev[i] = j;
+                    beststart = start;
+                    bestlen = len;
                 }
+                start = i;
+                len = 1;
             }
         }
-
-        int maxLength = 0;
-        int maxIndex = -1;
-        for (int i = 0; i < n; i++)
+        Console.WriteLine("Найдовша послідовність однакових елементів:");
+        for (int i = beststart; i < beststart + bestlen; i++)
         {
-            if (dp[i] > maxLength)
-            {
-                maxLength = dp[i];
-                maxIndex = i;
-            }
+            Console.Write(arr[i] + " ");
         }
-        int[] lis = new int[maxLength];
-        int k = maxLength - 1;
-        for (int i = maxIndex; i >= 0; i = prev[i])
-        {
-            lis[k--] = arr[i];
-            if (i == prev[i])
-                break;
-        }
-
-        Console.WriteLine(string.Join(" ", lis));
+        Console.WriteLine();
     }
 }

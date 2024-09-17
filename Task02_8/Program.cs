@@ -1,42 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 
 class Program
 {
     static void Main()
     {
-        int[] arr = Array.ConvertAll(Console.ReadLine().Split(' '), int.Parse);
+        Console.OutputEncoding = Encoding.UTF8;
+        Console.InputEncoding = Encoding.UTF8;
+        Console.WriteLine("Введіть числа, розділені пробілами:");
+        int[] numbers = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
 
-        Dictionary<int, int> frequency = new Dictionary<int, int>();
+        int bestStart = 0;
+        int bestLen = 1;
+        int start = 0;
+        int len = 1;
 
-        List<int> order = new List<int>();
-
-        foreach (int num in arr)
+        for (int pos = 1; pos < numbers.Length; pos++)
         {
-            if (frequency.ContainsKey(num))
+            if (numbers[pos] > numbers[pos - 1])
             {
-                frequency[num]++;
+                len++;
             }
             else
             {
-                frequency[num] = 1;
-                order.Add(num);
+                if (len > bestLen)
+                {
+                    bestStart = start;
+                    bestLen = len;
+                }
+                start = pos;
+                len = 1;
             }
         }
-
-        int mostFrequent = -1;
-        int maxFrequency = 0;
-
-        foreach (int num in order)
+        if (len > bestLen)
         {
-            if (frequency[num] > maxFrequency)
-            {
-                mostFrequent = num;
-                maxFrequency = frequency[num];
-            }
+            bestStart = start;
+            bestLen = len;
         }
 
-        Console.WriteLine($"Число {mostFrequent} зустрічається частіше за все ({maxFrequency} разів)");
+        Console.WriteLine("Найдовша зростаюча послідовність:");
+        for (int i = bestStart; i < bestStart + bestLen; i++)
+        {
+            Console.Write(numbers[i] + " ");
+        }
+        Console.WriteLine();
     }
 }
