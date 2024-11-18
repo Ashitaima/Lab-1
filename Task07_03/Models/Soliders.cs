@@ -29,8 +29,7 @@ namespace Task07_03.Models
     {
         public decimal Salary { get; private set; }
 
-        public Private(int id, string firstName, string lastName, decimal salary)
-            : base(id, firstName, lastName)
+        public Private(int id, string firstName, string lastName, decimal salary) : base(id, firstName, lastName)
         {
             Salary = salary;
         }
@@ -45,8 +44,7 @@ namespace Task07_03.Models
     {
         public List<IPrivate> Privates { get; private set; }
 
-        public LeutenantGeneral(int id, string firstName, string lastName, decimal salary)
-            : base(id, firstName, lastName)
+        public LeutenantGeneral(int id, string firstName, string lastName, decimal salary) : base(id, firstName, lastName)
         {
             Privates = new List<IPrivate>();
         }
@@ -58,7 +56,11 @@ namespace Task07_03.Models
 
         public override string ToString()
         {
-            var privatesOutput = string.Join(Environment.NewLine, Privates.Select(p => "  " + p.ToString()));
+            var privatesOutput = "";
+            foreach (var p in Privates)
+            {
+                privatesOutput += "  " + p.ToString() + Environment.NewLine;
+            }
             return base.ToString() + $"\nPrivates:\n{privatesOutput}";
         }
     }
@@ -67,8 +69,7 @@ namespace Task07_03.Models
     {
         public string Corps { get; private set; }
 
-        public SpecialisedSoldier(int id, string firstName, string lastName, string corps)
-            : base(id, firstName, lastName)
+        public SpecialisedSoldier(int id, string firstName, string lastName, string corps) : base(id, firstName, lastName)
         {
             Corps = corps;
         }
@@ -77,8 +78,7 @@ namespace Task07_03.Models
     {
         public List<Repair> Repairs { get; private set; }
 
-        public Engineer(int id, string firstName, string lastName, string corps)
-            : base(id, firstName, lastName, corps)
+        public Engineer(int id, string firstName, string lastName, string corps) : base(id, firstName, lastName, corps)
         {
             Repairs = new List<Repair>();
         }
@@ -90,7 +90,11 @@ namespace Task07_03.Models
 
         public override string ToString()
         {
-            var repairsOutput = string.Join(Environment.NewLine, Repairs.Select(r => "  " + r.ToString()));
+            var repairsOutput = "";
+            foreach (var repair in Repairs)
+            {
+                repairsOutput += "  " + repair.ToString() + Environment.NewLine;
+            }
             return base.ToString() + $"\nCorps: {Corps}\nRepairs:\n{repairsOutput}";
         }
     }
@@ -99,8 +103,7 @@ namespace Task07_03.Models
     {
         public List<Mission> Missions { get; private set; }
 
-        public Commando(int id, string firstName, string lastName, string corps)
-            : base(id, firstName, lastName, corps)
+        public Commando(int id, string firstName, string lastName, string corps) : base(id, firstName, lastName, corps)
         {
             Missions = new List<Mission>();
         }
@@ -112,7 +115,11 @@ namespace Task07_03.Models
 
         public override string ToString()
         {
-            var missionsOutput = string.Join(Environment.NewLine, Missions.Select(m => "  " + m.ToString()));
+            var missionsOutput = "";
+            foreach (var mission in Missions)
+            {
+                missionsOutput += "  " + mission.ToString() + Environment.NewLine;
+            }
             return base.ToString() + $"\nCorps: {Corps}\nMissions:\n{missionsOutput}";
         }
     }
@@ -121,8 +128,7 @@ namespace Task07_03.Models
     {
         public int CodeNumber { get; private set; }
 
-        public Spy(int id, string firstName, string lastName, int codeNumber)
-            : base(id, firstName, lastName)
+        public Spy(int id, string firstName, string lastName, int codeNumber) : base(id, firstName, lastName)
         {
             CodeNumber = codeNumber;
         }
